@@ -2,13 +2,13 @@
 Simple Spring Boot app to take notes
 
 créez une image docker avec la commmande suivante:(il faut etre dans la racine du projet)
-docker build -t knote-java .
+docker build -t progdisbueapplication .
 
 pour connecter les conteneurs on doit créer un reseau docker grace a la commande suivante:
 docker network create knote
 
 maintenant on execute mongodb grace a la commande suivante:
-docker run --name=mongo --rm --network=knote mongo
+docker run --name=mongo --rm --network=progsisbuenetwork mongo
 a propos de la commmande:
 --name : définit le nom du conteneur — si vous ne spécifiez pas un nom explicitement, alors un nom est généré automatiquement
 --rm : nettoie automatiquement le conteneur et supprime le système de fichiers lorsque le conteneur se ferme
@@ -16,7 +16,7 @@ a propos de la commmande:
 mongo : est le nom de l'image Docker que vous souhaitez exécuter
  
 pour executer l'application on a la commande suivante:
-docker run --name=knote-java --rm --network=knote -p 8080:8080 -e MONGO_URL=mongodb://mongo:27017/dev knote-java
+docker run --name=progdisbueapplication --rm --network=progsisbuenetwork -p 8080:8080 -e MONGO_URL=mongodb://mongo:27017/dev progdisbueapplication
 
 --name: définit le nom du conteneur
 --rm: nettoie automatiquement le conteneur et supprime le système de fichiers lorsque le conteneur se ferme
@@ -28,15 +28,15 @@ Charger l'image du conteneur dans un registre de conteneurs
 docker login
 
 renommer l'image
-docker tag knote-java rachidmiage2022/knote-java:1.0.0
+docker tag progdisbueapplication ndawyaya/progdisbueapplication:1.0.0
 
 telecharger l'image sur docker hub
-docker push rachidmiage2022/knote-java:1.0.0 
+docker push ndawyaya/progdisbueapplication:1.0.0
 
 tout le monde peut acceder a l'application grace aux deux commandes suivantes
 
-docker run --name=mongo --rm --network=knote mongo
-docker run --name=knote-java --rm --network=knote -p 8080:8080 -e MONGO_URL=mongodb://mongo:27017/dev rachidmiage2022/knote-java:1.0.0
+docker run --name=mongo --rm --network=progsisbuenetwork mongo
+docker run --name=progdisbueapplication --rm --network=knote -p 8080:8080 -e MONGO_URL=mongodb://mongo:27017/dev ndawyaya/progdisbueapplication:1.0.0
 
 Créer un cluster Kubernetes local (avec minikube)
 installer kubectl
@@ -63,7 +63,7 @@ créer un dossier pour le déploiement
 mkdir kube
 
 
-ajout du fichier knote.yaml pour le déploiement
+ajout du fichier knote.yaml pour le déploiement de l'application
 
 Les quatre premières lignes définissent le type de ressource (Déploiement), 
 la version de ce type de ressource ( apps/v1), et le nom de cette ressource spécifique ( knote) 
@@ -79,8 +79,8 @@ La dérniére partie du déploiement définit le conteneur réel que vous souhai
 
 Il définit les éléments suivants :
 
-Un nom pour le conteneur ( knote)
-Le nom de l'image Docker ( rachidmiage2022/knote-java:1.0.0).
+Un nom pour le conteneur ( progdisbueapplication)
+Le nom de l'image Docker ( ndawyaya/progdisbueapplication:1.0.0).
 Le port sur lequel le conteneur écoute (8080)
 Une variable d'environnement ( MONGO_URL) qui sera mise à la disposition du processus dans le conteneur
 
