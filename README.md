@@ -1,4 +1,4 @@
-# knote-java
+# application de publication de contenu
 Simple Spring Boot app to take notes
 
 créez une image docker avec la commmande suivante:(il faut etre dans la racine du projet)
