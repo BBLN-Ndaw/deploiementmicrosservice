@@ -127,4 +127,4 @@ kubectl apply -f kube
 démarrer le pod
 ubectl get pods --watch
 démarrage du service
-minikube service knote --url
+minikube service progdisbueapplication --url
